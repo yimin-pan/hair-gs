@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="HairGS: Hair Strand Reconstruction based on 3D Gaussian Splatting">
+    <meta name="keywords"
+        content="Hair Reconstruction, 3D Gaussian Splatting, Hair Strand, 3D Scanning, Hair, Avatar, 3D">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HairGS: Hair Strand Reconstruction based on 3D Gaussian Splatting</title>
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/color/jquery.color-2.2.0.min.js"
+        integrity="sha256-aSe2ZC5QeunlL/w/7PsVKmV+fa0eDbmybn/ptsKHR6I=" crossorigin="anonymous"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/interact.min.js"></script>
+    <script src="./static/js/index.js"></script>
+
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+
+    <!-- Title, Authors & Link Capsules -->
+    <section class="hero section-title">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title">
+                        HairGS: Hair Strand Reconstruction based on 3D
+                        Gaussian Splatting</h1>
+                    </h1>
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block">
+                            <a href="https://github.com/Yimin-pan">Yimin Pan </a>,</span>
+                        <span class="author-block">
+                            <a href="https://niessnerlab.org/members/tobias_kirschstein/profile.html">Tobias
+                                Kirschstein</a>,</span>
+                        <span class="author-block">
+                            <a href="https://niessnerlab.org/" target="_blank">Matthias Nie&szlig;ner</a></span>
+                    </div>
+
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block">Technical University of Munich</span>
+                    </div>
+
+                    <div class="is-size-5 m-3"><strong>BMVC 2025</strong></div>
+
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+                            <!-- PDF Link. -->
+                            <span class="link-block">
+                                <!-- <a href="static/Hair-GS.pdf" -->
+                                <a class="external-link button is-normal is-rounded is-dark" href="static/paper.pdf">
+                                    <span class="icon">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </span>
+                                    <span>Paper</span>
+                                </a>
+                            </span>
+                            <!-- arXiv Link. -->
+                            <span class="link-block">
+                                <a class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon">
+                                        <i class="ai ai-arxiv"></i>
+                                    </span>
+                                    <span>arXiv (Coming Soon)</span>
+                                </a>
+                            </span>
+                            <!-- Github Link. -->
+                            <span class="link-block">
+                                <a class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon">
+                                        <i class="fab fa-github"></i>
+                                    </span>
+                                    <span>Code (Coming Soon)</span>
+                                </a>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--        </div>-->
+        </div>
+    </section>
+
+    <section class="hero teaser">
+        <div class="container is-max-desktop">
+            <div class="hero-body">
+                <img src="./static/figures/teaser.jpg" height="200%" />
+                <h2 class=" subtitle has-text-centered" style="padding-top: 10px">
+                    <p align="left">
+                        Taking multiview images as input, our method reconstructs realistic hair strands across a wide
+                        range of hairstyles.
+                    </p>
+                </h2>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Abstract -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">Abstract</h2>
+                    <div class="content has-text-justified">
+                        <p margin="0">
+                            Human hair reconstruction is a challenging problem in computer vision, with growing
+                            importance for applications in virtual reality and digital human modeling. Recent advances
+                            in 3D Gaussians Splatting (3DGS) provide efficient and explicit scene representations that
+                            naturally align with the structure of hair strands. In this work, we extend the 3DGS
+                            framework to enable strand-level hair geometry reconstruction from multiview images. Our
+                            multi-stage pipeline first reconstructs detailed hair geometry using a differentiable
+                            Gaussian rasterizer, then merges individual Gaussian segments into coherent strands through
+                            a novel merging scheme, and finally refines and grows the strands under photometric
+                            supervision. While existing methods typically evaluate reconstruction quality at the
+                            geometric level, they often neglect the connectivity and topology of hair strands. To
+                            address this, we propose a new evaluation metric that serves as a proxy for assessing
+                            topological accuracy in strand reconstruction.
+                            <br>
+                            Extensive experiments on both synthetic and real-world datasets demonstrate that our method
+                            robustly handles a wide range of hairstyles and achieves efficient reconstruction, typically
+                            completing within one hour.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Method Overview -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered" style="margin-top: 15px">
+                <div class="column is-full-width">
+                    <h2 class="title is-3 has-text-centered">Method Overview</h2>
+                    <img src="./static/figures/pipeline.jpg" />
+                    <div class="content has-text">
+                        <p>
+                            <strong>HairGS</strong> reconstructs realistic, strand-level hair geometry from multiview
+                            images
+                            using a three-stage pipeline built on top of 3D Gaussian Splatting framework.
+                        </p>
+
+                        <ol id="method-overview-list">
+                            <li>
+                                <strong>Input Preparation.</strong> Images are fed into COLMAP to recover camera poses.
+                                A FLAME model is fitted to obtain head vertices to initialize the Gaussians, Gabor
+                                filters
+                                are used to estimate 2D orientation, and segmentation networks extract hair masks.
+                            </li>
+                            <li>
+                                <strong>Stage I – Geometry Reconstruction.</strong> Each 3D Gaussian is characterized by
+                                its attributes: mean position $\mu$, per-axis scale $s$, quaternion rotation $q$,
+                                opacity $\alpha$, and mask value $m$. These attributes are optimized using a
+                                differentiable rasterizer under the supervision of three loss functions: photometric
+                                loss $\mathcal{L}_{RGB}$, angular loss $\mathcal{L}_{\theta}$, and mask loss
+                                $\mathcal{L}_{m}$. Combined with adaptive densification, this stage produces a dense and
+                                detailed representation of visible hair geometry.
+                            </li>
+                            <li>
+                                <strong>Stage II – Strand Initialization and Merging.</strong> Each Gaussian is
+                                converted into a short two-joint segment. Segments are iteratively merged into
+                                longer proto-strands using distance and angular heuristics.
+                            </li>
+                            <li>
+                                <strong>Stage III – Growing and Refinement.</strong> Joint positions are refined
+                                under image-based supervision. Angle smoothness constraints is introduced to prevent
+                                creation of sharp bends. Additional joint points are added to long segments in order to
+                                better model curves. Merging thresholds are progressively relaxed to encourage formation
+                                of longer
+                                strands.
+                            </li>
+                            <li>
+                                <strong>Output Representation.</strong> The final output is a set of hair strands of
+                                variable length, represented as 3D
+                                polylines. Each strand is extracted from the scene using the mask value.
+                            </li>
+                        </ol>
+
+                        </ol>
+                    </div>
+                    <br>
+                    <br>
+
+                    <img src="./static/figures/first_stage.jpg" />
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reconstruction Results-->
+    <section class="hero is-small">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <h2 class="title is-4">Reconstruction Results on Real-World Dataset (NeRSemble)</h2>
+                <br />
+                <div id="reenactments-container" class="container">
+                    <div id="reenactments-carousel" class="carousel reenactments-carousel">
+                        <div class="item-173">
+                            <video poster="" id="173" autoplay controls muted loop playsinline height="100%">
+                                <source src="./static/videos/nersemble/173.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="item-251">
+                            <video poster="" id="251" autoplay controls muted loop playsinline height="100%">
+                                <source src="./static/videos/nersemble/251.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="item-293">
+                            <video poster="" id="293" autoplay controls muted loop playsinline height="100%">
+                                <source src="./static/videos/nersemble/293.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="item-297">
+                            <video poster="" id="297" autoplay controls muted loop playsinline height="100%">
+                                <source src="./static/videos/nersemble/297.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div class="item-304">
+                            <video poster="" id="304" autoplay controls muted loop playsinline height="100%">
+                                <source src="./static/videos/nersemble/304.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                <table width="100%">
+                    <tr>
+                        <td align="center" width="40%">Input Images (16 Views)</td>
+                        <td width="15%"></td>
+                        <td align="center" width="45%">Reconstructed Strands</strong></td>
+                    </tr>
+                </table>
+            </div>
+            <br />
+            <div class="container is-max-desktop">
+                <h2 class="title is-4">Reconstruction Results on Synthetic Dataset (USC-HairSalon)</h2>
+                <br />
+                <div id="reenactments-container" class="container">
+                    <div id="reenactments-carousel" class="carousel reenactments-carousel">
+                        <div class="item-00050">
+                            <video poster="" id="00050" autoplay controls muted loop playsinline height="100%">
+                                <source src="./static/videos/usc-hairsalon/00050.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="item-00320">
+                            <video poster="" id="00320" autoplay controls muted loop playsinline height="100%">
+                                <source src="./static/videos/usc-hairsalon/00320.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="item-00510">
+                            <video poster="" id="00510" autoplay controls muted loop playsinline height="100%">
+                                <source src="./static/videos/usc-hairsalon/00510.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                <table width="100%">
+                    <tr>
+                        <td align="center" width="40%">Input Images (14 Views)</td>
+                        <td width="15%"></td>
+                        <td align="center" width="45%">Reconstructed Strands</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="hero is-small">
+        <section class="section" id="BibTeX">
+            <div class="container is-max-desktop content">
+                <h2 class="title" style="text-align: center">BibTeX</h2>
+                <pre><code> TODO: add bibtex </code></pre>
+            </div>
+        </section>
+    </section> -->
+
+</body>
+
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <a class="icon-link" href="static/paper.pdf">
+                <i class="fas fa-file-pdf"></i>
+            </a>
+            <a class="icon-link" href="https://github.com/Yimin-pan" class="external-link" disabled>
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <div class="columns is-centered">
+            <div class="column is-8">
+                <div class="content">
+                    <p style="text-align:center">
+                        Please contact <a href="https://github.com/Yimin-pan">Yimin
+                            Pan</a> for feedback and questions.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</html>
