@@ -1,0 +1,34 @@
+name: hair-gs
+channels:
+  - defaults
+  - conda-forge
+
+dependencies:
+  - python=3.10
+  - pip
+  - vs2022_win-64 # assuming VS2022 is installed
+  - conda-forge::pytorch
+  - conda-forge::torchvision
+  - cython
+  - pathlib
+  - tqdm
+  - tensorboard
+  - wandb
+  - plyfile
+  - pyrr
+  - scipy
+  - opencv
+  - pyvista
+  - pyvistaqt
+  - pyopengl
+  - pyopengl-accelerate
+
+  - pip:
+      - dreifus
+      - glfw
+      - smplx
+      - chumpy-fix
+      - ./c_utils
+      - submodules/diff-gaussian-rasterization
+      - submodules/simple-knn
+      - -e .

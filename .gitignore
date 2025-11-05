@@ -1,0 +1,40 @@
+__pycache__/
+*.pyc
+*.pyd
+*.c
+*.html
+.vscode
+.idea
+
+# files
+*.npy
+*.npz
+*.ply
+*.pkl
+*.pt
+*.pth
+
+# build
+build
+*.egg-info/
+*.so
+
+# dataset
+dataset/raw/cem_yuksel/
+dataset/raw/nersemble/
+dataset/raw/hairstyles/
+dataset/raw/__MACOSX/
+dataset/parsed/cem_yuksel/
+dataset/parsed/nersemble/
+dataset/parsed/usc_hairsalon/
+
+# model output
+output
+
+# logs
+wandb
+tensorboard_logs
+
+# directories
+chore/
+pytorch3d/

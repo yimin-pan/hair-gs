@@ -1,0 +1,35 @@
+name: hair-gs
+channels:
+  - defaults
+  - conda-forge
+
+dependencies:
+  - python=3.10
+  - pip
+  - conda-forge::pytorch
+  - conda-forge::torchvision
+  - conda-forge::pytorch3d
+  - cython
+  - pathlib
+  - tqdm
+  - tensorboard
+  - wandb
+  - plyfile
+  - pyrr
+  - scipy
+  - opencv
+  - pyvista
+  - pyvistaqt
+  - pyopengl
+  - pyopengl-accelerate
+
+  - pip:
+      - dreifus
+      - glfw
+      - smplx
+      - chumpy-fix
+      - nersemble_data
+      - ./c_utils
+      - submodules/diff-gaussian-rasterization
+      - submodules/simple-knn
+      - -e .
