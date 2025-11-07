@@ -6,7 +6,7 @@ channels:
 dependencies:
   - python=3.10
   - pip
-  - vs2022_win-64 # assuming VS2022 is installed
+  - vs2022_win-64
   - conda-forge::pytorch
   - conda-forge::torchvision
   - cython
@@ -17,13 +17,13 @@ dependencies:
   - plyfile
   - pyrr
   - scipy
-  - opencv
-  - pyvista
-  - pyvistaqt
   - pyopengl
   - pyopengl-accelerate
 
   - pip:
+      - opencv-python
+      - pyvista
+      - pyvistaqt
       - dreifus
       - glfw
       - smplx
