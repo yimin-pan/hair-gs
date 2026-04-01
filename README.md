@@ -1,5 +1,5 @@
 # Hair-GS: Hair Reconstruction based on 3D Gaussian Splatting
-This repository contains the implementation of the paper [Hair Reconstruction based on 3D Gaussian Splatting](https://arxiv.org/abs/2508.08614).
+This repository contains the implementation of the paper [HairGS: Hair Strand Reconstruction based on 3D Gaussian Splatting](https://arxiv.org/abs/2509.07774).
 
 ## 🛠️ Installation
 
